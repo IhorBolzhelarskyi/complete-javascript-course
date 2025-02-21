@@ -15,19 +15,37 @@ document.querySelector('.check').addEventListener('click', function () {
 
   console.log(guess);
 
+  // no input
   if (!guess) {
     document.querySelector('.message').textContent = `Not a number❗`;
+    // win condition
   } else if (guess === secretNumber) {
-    document.querySelector(
-      `.message`
-    ).textContent = `Congratulation you are a winner!`;
+    // prettier-ignore
+    document.querySelector(`.message`).textContent = `Congratulation you are a winner!`;
+    document.querySelector(`body`).style.backgroundColor = `#60b347`;
+    document.querySelector(`.number`).style;
+    // when number is too high
   } else if (guess > secretNumber) {
-    document.querySelector(`.message`).textContent = `Too high`;
-    document.querySelector(`.score`).textContent = score;
-    score--;
+    if (score >= 1) {
+      document.querySelector(`.message`).textContent = `Too high`;
+      document.querySelector(`.score`).textContent = score;
+      score--;
+    } else {
+      document.querySelector(`.message`).textContent = `You lost😈`;
+      document.querySelector(`.score`).textContent = 0;
+    }
+    // when number is too low
   } else if (guess < secretNumber) {
-    document.querySelector(`.message`).textContent = `Too low`;
-    document.querySelector(`.score`).textContent = score;
-    score--;
+    if (score >= 1) {
+      document.querySelector(`.message`).textContent = `Too low`;
+      document.querySelector(`.score`).textContent = score;
+      score--;
+    } else {
+      document.querySelector(`.message`).textContent = `You lost😈`;
+      document.querySelector(`.score`).textContent = 0;
+    }
+    if (score < 1) {
+      document.querySelector(`.message`).textContent(`You lost😈`);
+    }
   }
 });
