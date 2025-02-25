@@ -30,6 +30,9 @@ document.querySelector('.check').addEventListener('click', function () {
 
     // When player wins
   } else if (guess === secretNumber) {
+    document.querySelector(
+      `.message`
+    ).textContent = `fcascsacscsscdrwrqafqqwqwwqqwqwwqqwqwqwqwqwswwwwwwwwwwwwwwww`;
     // document.querySelector('.message').textContent = '🎉 Correct Number!';
     displayMessage('🎉 Correct Number!');
     document.querySelector('.number').textContent = secretNumber;

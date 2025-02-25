@@ -26,7 +26,8 @@ document.querySelector('.check').addEventListener('click', function () {
       highscore = score;
       document.querySelector(`.highscore`).textContent = highscore;
     }
-    // prettier-ignore
+
+  
     myFunction(`Congratulation you are a winner!`);
     document.querySelector(`body`).style.backgroundColor = `#60b347`;
     document.querySelector(`.number`).style.width = `30rem`;
