@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out.toFixed(2))}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -251,3 +251,94 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+// console.log(Math.sqrt(25));
+// console.log(25 ** (1 / 2));
+
+// console.log(Math.max(1, 4, 12, 6));
+// console.log(Math.PI * Number.parseFloat(`10 px`) ** 2);
+
+// console.log(Math.trunc(Math.random() * 6) + 1);
+
+// const randomNumber = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+
+// console.log(randomNumber(10, 20));
+
+// console.log(Math.floor(Math.random() * 5 - 1 + 1) + 1);
+
+// function randomDise(min, max) {
+//   return Math.floor(Math.random() * (max - min + 1) + min);
+// }
+// console.log(randomDise(7, 9));
+
+// const lastRandom = function (min, max) {
+//   return Math.floor(Math.random() * (max - min + 1) + min);
+// };
+// console.log(lastRandom(-2, 2));
+
+// console.log(Math.trunc(23.523));
+// console.log(Math.round(23.442));
+// console.log(Math.floor(23.9));
+// console.log(Math.ceil(21.01));
+
+// console.log((2.1221).toFixed(0));
+
+// console.log(5 % 2);
+
+// const evenNumbersCheck = number => number % 2 === 0;
+// console.log(evenNumbersCheck(4));
+
+// document.querySelector(`.logo`).addEventListener(`click`, () => {
+//   document.querySelectorAll(`.movements__row`).forEach((mov, i) => {
+//     if (i % 2 !== 0) {
+//       mov.style.backgroundColor = `green`;
+//     }
+//     if (i % 3 === 0) {
+//       mov.style.borderRadius = `50%`;
+//       mov.style.backgroundColor = `brown`;
+//     }
+//   });
+// });
+
+// const diameter = 287_100;
+// console.log(diameter);
+// console.log(2 ** 53 + 111);
+// console.log(2131231231231231231231311312312n);
+// console.log(BigInt(12211211212212112211212211212124444));
+
+function spinWords(string) {
+  return string
+    .split(` `)
+    .map(str => {
+      if (str.length >= 5) {
+        return str.split(``).reverse().join(``);
+      }
+      return str;
+    })
+    .join(` `);
+}
+console.log(spinWords(`ow`));
+
+function keywordCipher(string, keyword) {
+  const indexes = [];
+  console.log(indexes);
+  const alphabet = `abcdefghijklmnopqrstuvwxyz`.split(``);
+  const stringArr = string.toLowerCase().split(` `);
+  console.log(stringArr);
+  const newStrArr = stringArr.map(el => el.split(``));
+  newStrArr.forEach((el, i) => {
+    indexes[i] = [];
+    el.forEach((char, k) => {
+      indexes[i].push(alphabet.indexOf(char));
+    });
+  });
+  console.log(alphabet);
+  // const lettersCipher = new Set(keyword);
+  const allSet = [...new Set([...keyword, ...alphabet])];
+  console.log(allSet);
+  const lastArr = indexes.map(index => index.map(key => allSet[key]).join(``));
+
+  return lastArr.join(' ');
+}
+console.log(keywordCipher('one two three', 'rails'));
